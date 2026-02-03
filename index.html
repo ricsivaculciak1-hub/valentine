@@ -99,81 +99,81 @@
     <p>I made something just for you</p>
     <p class="hint">Tap anywhere 💖</p>
   </div>
+<script>
+  const card = document.getElementById("card");
+  const music = document.getElementById("music");
 
-  <script>
-    const card = document.getElementById("card");
-    const music = document.getElementById("music");
+  let step = 0;
 
-    let step = 0;
+  function render(content) {
+    card.innerHTML = content;
+  }
 
-    const screens = [
-      {
-        title: "Will you be my Valentine? 💘",
-        text: "I’ve been wanting to ask you this",
-        buttons: `
-          <button class="yes" onclick="next()">Yes 💖</button>
-          <button class="no" onclick="next()">No 😅</button>
-        `
-      },
-      {
-        title: "Wait… are you sure? 🤨",
-        text: "Like… actually sure?",
-        buttons: `
-          <button class="yes" onclick="next()">Yes 😌</button>
-          <button class="no" onclick="next()">Hmm…</button>
-        `
-      },
-      {
-        title: "ARE YOU REALLY SURE?? 💍",
-        text: "This is a very important decision",
-        buttons: `
-          <button class="yes" onclick="next()">I’M SURE 💖</button>
-        `
-      },
-      {
-        title: "YAYYYYY!!! 💖💖💖",
-        text: "You just made me the happiest person ever 🥰",
-        buttons: ""
-      }
-    ];
+  function start() {
+    music.play().catch(() => {});
+    step = 1;
+    firstQuestion();
+  }
 
-    function next() {
-      step++;
-      if (step < screens.length) {
-        render();
-      }
-    }
+  function firstQuestion() {
+    render(`
+      <h1>Will you be my Valentine? 💘</h1>
+      <p>I’ve been wanting to ask you this</p>
+      <button class="yes" onclick="areYouSure()">Yes 💖</button>
+      <button class="no" onclick="notSure()">Hmm… 😅</button>
+    `);
+  }
 
-    function render() {
-      const s = screens[step];
-      card.innerHTML = `
-        <h1>${s.title}</h1>
-        <p>${s.text}</p>
-        ${s.buttons}
-      `;
-    }
+  function notSure() {
+    render(`
+      <h1>Hey 😳</h1>
+      <p>Take your time… but think carefully 💭</p>
+      <button class="yes" onclick="areYouSure()">Okay… Yes 💖</button>
+      <button class="no" onclick="notSureAgain()">Still not sure 😬</button>
+    `);
+  }
 
-    // Tap anywhere to progress first screen + start music
-    document.body.addEventListener("click", () => {
-      if (step === 0) {
-        music.play().catch(() => {});
-        step = 1;
-        render();
-      }
-    }, { once: true });
+  function notSureAgain() {
+    render(`
+      <h1>Wow 😮</h1>
+      <p>I’m starting to feel nervous now…</p>
+      <button class="yes" onclick="areYouSure()">Okay fine… YES 💖</button>
+    `);
+  }
 
-    // floating hearts
-    setInterval(() => {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.innerHTML = "💖";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 6000);
-    }, 450);
-  </script>
+  function areYouSure() {
+    render(`
+      <h1>Are you REALLY sure?? 💍</h1>
+      <p>This is a very important decision</p>
+      <button class="yes" onclick="finalYes()">I’M SURE 💖</button>
+    `);
+  }
+
+  function finalYes() {
+    render(`
+      <h1>YAYYYYY!!! 💖💖💖</h1>
+      <p>You just made me the happiest person ever 🥰</p>
+    `);
+  }
+
+  // Start on first tap (TikTok-style)
+  document.body.addEventListener("click", () => {
+    if (step === 0) start();
+  }, { once: true });
+
+  // Floating hearts
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+  }, 450);
+</script>
 
 </body>
 </html>
+
 
