@@ -155,11 +155,12 @@
       <p>You just made me the happiest person ever 🥰</p>
     `);
   }
+card.addEventListener("click", () => {
+  if (step === 0) {
+    start();
+  }
+});
 
-  // Start on first tap (TikTok-style)
-  document.body.addEventListener("click", () => {
-    if (step === 0) start();
-  }, { once: true });
 
   // Floating hearts
   setInterval(() => {
@@ -175,5 +176,6 @@
 
 </body>
 </html>
+
 
 
