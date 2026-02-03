@@ -15,7 +15,7 @@
     body {
       margin: 0;
       height: 100vh;
-      background: linear-gradient(135deg, #ffafcc, #cdb4db);
+      background: linear-gradient(135deg, #fff0f6, #ffe4ee);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -23,82 +23,112 @@
     }
 
     .card {
-      background: white;
+      background: #ffffff;
       padding: 40px 30px;
-      border-radius: 25px;
+      border-radius: 30px;
       text-align: center;
       width: 90%;
       max-width: 360px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      box-shadow: 0 25px 45px rgba(255, 143, 177, 0.35);
       animation: popIn 0.6s ease;
+      position: relative;
+    }
+
+    /* kitty peek */
+    .card::before {
+      content: "ฅ^•ﻌ•^ฅ";
+      position: absolute;
+      top: -22px;
+      right: 20px;
+      font-size: 20px;
+      opacity: 0.7;
     }
 
     @keyframes popIn {
-      from { transform: scale(0.85); opacity: 0; }
+      from { transform: scale(0.88); opacity: 0; }
       to { transform: scale(1); opacity: 1; }
     }
 
     h1 {
       font-size: 1.5rem;
       margin-bottom: 10px;
+      color: #5a2a3a;
     }
 
     p {
-      color: #555;
-      margin-bottom: 25px;
+      color: #6b3a4a;
+      margin-bottom: 22px;
     }
 
     button {
-      padding: 12px 24px;
+      padding: 13px 26px;
       font-size: 16px;
       border: none;
-      border-radius: 12px;
+      border-radius: 999px;
       cursor: pointer;
       margin: 8px;
+      transition: all 0.25s ease;
+      font-weight: 600;
     }
 
     .yes {
-      background: #57cc99;
+      background: #ff8fb1;
       color: white;
+      animation: pulse 1.8s infinite;
+    }
+
+    .yes:hover {
+      background: #ff5d8f;
+      transform: scale(1.07);
     }
 
     .no {
-      background: #ff5c8a;
-      color: white;
+      background: #ffe4ee;
+      color: #5a2a3a;
+    }
+
+    .no:hover {
+      transform: translateX(6px);
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255,143,177,0.6); }
+      70% { box-shadow: 0 0 0 14px rgba(255,143,177,0); }
+      100% { box-shadow: 0 0 0 0 rgba(255,143,177,0); }
     }
 
     .hint {
       font-size: 13px;
-      opacity: 0.6;
+      opacity: 0.55;
       margin-top: 10px;
     }
 
     .heart {
       position: absolute;
-      font-size: 22px;
-      animation: float 6s linear infinite;
-      opacity: 0.8;
+      font-size: 20px;
+      animation: float 7s linear infinite;
+      opacity: 0.75;
     }
 
     @keyframes float {
-      from { transform: translateY(100vh); opacity: 1; }
-      to { transform: translateY(-10vh); opacity: 0; }
+      from { transform: translateY(100vh) scale(1); opacity: 1; }
+      to { transform: translateY(-10vh) scale(0.8); opacity: 0; }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- Background music -->
   <audio id="music" loop>
     <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
   </audio>
 
   <div class="card" id="card">
-    <h1>Hey you 💕</h1>
+    <h1>Hey you 🎀</h1>
     <p>I made something just for you</p>
-    <p class="hint">Tap anywhere 💖</p>
+    <p class="hint">Tap anywhere ♡</p>
   </div>
+
 <script>
   const card = document.getElementById("card");
   const music = document.getElementById("music");
@@ -118,33 +148,33 @@
   function firstQuestion() {
     render(`
       <h1>Will you be my Valentine? 💘</h1>
-      <p>I’ve been wanting to ask you this</p>
+      <p>I’ve been wanting to ask you this ♡</p>
       <button class="yes" onclick="areYouSure()">Yes 💖</button>
-      <button class="no" onclick="notSure()">Hmm… 😅</button>
+      <button class="no" onclick="notSure()">Hmm… 😳</button>
     `);
   }
 
   function notSure() {
     render(`
-      <h1>Hey 😳</h1>
-      <p>Take your time… but think carefully 💭</p>
-      <button class="yes" onclick="areYouSure()">Okay… Yes 💖</button>
-      <button class="no" onclick="notSureAgain()">Still not sure 😬</button>
+      <h1>Heyyy 🥺</h1>
+      <p>Take your time… I’ll wait 💭</p>
+      <button class="yes" onclick="areYouSure()">Okay… yes 💕</button>
+      <button class="no" onclick="notSureAgain()">Still not sure 😖</button>
     `);
   }
 
   function notSureAgain() {
     render(`
-      <h1>Wow 😮</h1>
-      <p>I’m starting to feel nervous now…</p>
-      <button class="yes" onclick="areYouSure()">Okay fine… YES 💖</button>
+      <h1>Oh no 😮</h1>
+      <p>My heart is beating faster now…</p>
+      <button class="yes" onclick="areYouSure()">Okay okay… YES 💖</button>
     `);
   }
 
   function areYouSure() {
     render(`
-      <h1>Are you REALLY sure?? 💍</h1>
-      <p>This is a very important decision</p>
+      <h1>Are you REALLY sure?? 🎀</h1>
+      <p>This is a very important decision 💍</p>
       <button class="yes" onclick="finalYes()">I’M SURE 💖</button>
     `);
   }
@@ -153,29 +183,25 @@
     render(`
       <h1>YAYYYYY!!! 💖💖💖</h1>
       <p>You just made me the happiest person ever 🥰</p>
+      <p>ฅ^•ﻌ•^ฅ ♡</p>
     `);
   }
-card.addEventListener("click", () => {
-  if (step === 0) {
-    start();
-  }
-});
 
+  card.addEventListener("click", () => {
+    if (step === 0) start();
+  });
 
-  // Floating hearts
+  // floating hearts
   setInterval(() => {
     const heart = document.createElement("div");
     heart.className = "heart";
-    heart.innerHTML = "💖";
+    heart.innerHTML = "💗";
     heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+    heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
     document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 6000);
-  }, 450);
+    setTimeout(() => heart.remove(), 7000);
+  }, 550);
 </script>
 
 </body>
 </html>
-
-
-
